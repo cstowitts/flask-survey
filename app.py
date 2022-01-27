@@ -35,9 +35,22 @@ def show_question(question_index):
     return render_template("question.html", question=survey_question)
 
 
+@app.post('/answer')
+def store_answer():
+    """Stores user's answer in responses and redirects to next question"""
 
-
-
+    answer = request.form["answer"]
+    responses.append(answer)
+    next_question_index = len(responses)
+    
+    if len(survey.questions) == len(responses):
+        return redirect("/thanks")
+    else:
+        return redirect(f"/questions/{next_question_index}")
+    
+@app.get('/thanks')
+def display_thanks():
+    return "thnkx"
 
 # @app.get(end)
 #     display end

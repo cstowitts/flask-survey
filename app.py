@@ -28,10 +28,15 @@ def show_start():
 @app.get('/questions/<int:question_index>')
 def show_question(question_index):
     """display appropriate question, choices, and continue button"""
+    num_answers = len(session["responses"])
+    #The index of your next question will always be equal to the 
+    #number of answers you have provided (length of responses list)
+    if question_index != num_answers:
+        return redirect(f"/questions/{num_answers}")
+    else:
+        survey_question = survey.questions[question_index]
 
-    survey_question = survey.questions[question_index]
-
-    return render_template("question.html", question=survey_question)
+        return render_template("question.html", question=survey_question)
 
 
 @app.post('/answer')

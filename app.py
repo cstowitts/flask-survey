@@ -32,6 +32,7 @@ def show_question(question_index):
     #The index of your next question will always be equal to the 
     #number of answers you have provided (length of responses list)
     if question_index != num_answers:
+        flash("Please don't do that. You are not a god. There is an order to these things. (You're trying to access an invalid question, my guy.)")
         return redirect(f"/questions/{num_answers}")
     else:
         survey_question = survey.questions[question_index]
@@ -47,6 +48,7 @@ def store_answer():
 
     responses = session["responses"]
     responses.append(answer)
+
     session["responses"] = responses
     next_question_index = len(responses)
 
